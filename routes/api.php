@@ -36,4 +36,5 @@ Route::group([
     Route::post('/search-user', [UsersController::class, 'search']); 
     Route::post('/add-favorite', [UsersController::class, 'addFavorite']);
     Route::post('/add-message', [UsersController::class, 'addMessage']);   
+    Route::get('/get-matches', [UsersController::class, 'getMatched']); 
 });
