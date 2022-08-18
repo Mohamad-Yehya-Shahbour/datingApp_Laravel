@@ -35,4 +35,5 @@ Route::group([
     Route::post('/update-user', [UsersController::class, 'updateUser']); 
     Route::post('/search-user', [UsersController::class, 'search']); 
     Route::post('/add-favorite', [UsersController::class, 'addFavorite']);
+    Route::post('/add-message', [UsersController::class, 'addMessage']);   
 });
