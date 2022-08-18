@@ -33,4 +33,5 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::get('/get-users', [UsersController::class, 'getUsers']);
     Route::post('/update-user', [UsersController::class, 'updateUser']); 
+    Route::post('/search-user', [UsersController::class, 'search']); 
 });
