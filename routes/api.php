@@ -38,4 +38,5 @@ Route::group([
     Route::post('/add-message', [UsersController::class, 'addMessage']);   
     Route::get('/get-matches', [UsersController::class, 'getMatched']); 
     Route::get('/get-user-pics', [UsersController::class, 'getUserPics']);
+    Route::post('/add-message', [UsersController::class, 'addMessage']); 
 });
