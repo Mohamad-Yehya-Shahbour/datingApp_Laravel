@@ -34,4 +34,9 @@ class AdminsController extends Controller
 		$user = Auth::user();
 		dd($user);
 	}
+
+    public function logout(){
+		Auth::logout();
+		return redirect()->route("index");	
+	}
 }
