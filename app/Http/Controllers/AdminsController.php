@@ -55,4 +55,11 @@ class AdminsController extends Controller
 
         return "picture approved";
     }
+
+    public function declinePic(Request $request){
+        Picture::where('pictures.id', '=', $request -> id)
+        ->delete();
+
+        return "picture deleted";
+    }
 }
