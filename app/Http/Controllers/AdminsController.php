@@ -39,4 +39,12 @@ class AdminsController extends Controller
 		Auth::logout();
 		return redirect()->route("index");	
 	}
+
+    public function getAllPics(){
+        $pics =  DB::table('pictures')
+        ->where('pending', '=', 1)
+        ->get();
+
+        return json_encode($pics);
+    }
 }
