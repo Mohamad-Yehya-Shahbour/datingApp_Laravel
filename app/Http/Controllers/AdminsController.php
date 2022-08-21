@@ -18,4 +18,15 @@ class AdminsController extends Controller
     public function index(){
         return view('welcome');
     }
+
+    public function login(Request $request){
+		$data = $request->only("email", "password");
+		
+		if(Auth::attempt($data)){
+			return redirect()->route("home");
+		}
+			
+		return redirect()->route("index");	
+		
+	}
 }
