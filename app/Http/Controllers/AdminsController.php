@@ -29,4 +29,9 @@ class AdminsController extends Controller
 		return redirect()->route("index");	
 		
 	}
+
+    public function home(){
+		$user = Auth::user();
+		dd($user);
+	}
 }
