@@ -47,4 +47,12 @@ class AdminsController extends Controller
 
         return json_encode($pics);
     }
+
+    public function approvePic(Request $request){
+        $pic = DB::table('pictures')
+        ->where('id', $request -> id)
+        ->update(['pending' => 1]);
+
+        return "picture approved";
+    }
 }
