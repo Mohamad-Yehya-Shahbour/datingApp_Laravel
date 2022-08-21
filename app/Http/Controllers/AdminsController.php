@@ -62,4 +62,12 @@ class AdminsController extends Controller
 
         return "picture deleted";
     }
+
+    public function approveMsg(Request $request){
+        $pic = DB::table('chats')
+        ->where('id', $request -> id)
+        ->update(['pending' => 1]);
+
+        return "message approved";
+    }
 }
