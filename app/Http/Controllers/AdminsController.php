@@ -70,4 +70,13 @@ class AdminsController extends Controller
 
         return "message approved";
     }
+
+    public function declineMsg(Request $request){
+        Chat::where('chats.id', '=', $request -> id)
+        ->delete();
+
+        return "message deleted";
+    }
+
+
 }
