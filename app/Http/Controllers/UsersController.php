@@ -98,6 +98,7 @@ class UsersController extends Controller
 
         return json_encode($users, JSON_PRETTY_PRINT);
     }
+
     public function addFavorite(Request $request){
         // check uf userid in to  -> if yes (remove the record where the userid is in to) & add record to matches table & add to notification table from userid to requestid
         // if no add to notification table from userid to requestid
@@ -125,5 +126,27 @@ class UsersController extends Controller
             $notif -> save();
 
         return response()->json(['message' => 'request sent successfully'], 200); 
+
+        }else{
+
+            // delete from favorite table already existing record
+            FavoriteRequest::where('favorite_requests.to', '=', $userId)->where('favorite_requests.from', '=', $request -> id)->delete();
+
+            // add both users to matches table
+            $match = new MatchUser;
+            $match -> user_1 = $userId;
+            $match -> user_2 = $request -> id;
+            $match -> save();
+
+            // send notification to the matched user
+            $notif = new Notification;
+            $notif -> from = $userId;
+            $notif -> to = $request -> id;
+            $notif -> body = "you have matched with ". $userName;
+            $notif -> save();
+
+            return response()->json(['message' => 'added to matches'], 200);
+        }
+    }
     }
 }
