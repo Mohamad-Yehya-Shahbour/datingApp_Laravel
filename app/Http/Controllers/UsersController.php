@@ -163,5 +163,17 @@ class UsersController extends Controller
         return response()->json(['message' => 'request is pending'], 200);
 
     }
+
+    public function getMatched(){
+
+        // get all matched users
+        $userId = auth()->user()->id;
+        $users = DB::table('matches')
+        ->where('user_1', '=', $userId)
+        ->orWhere('user_2', '=', $userId)
+        ->get();
+
+        return json_encode($users);
+    }
     }
 }
