@@ -98,4 +98,32 @@ class UsersController extends Controller
 
         return json_encode($users, JSON_PRETTY_PRINT);
     }
+    public function addFavorite(Request $request){
+        // check uf userid in to  -> if yes (remove the record where the userid is in to) & add record to matches table & add to notification table from userid to requestid
+        // if no add to notification table from userid to requestid
+
+        $userId = auth()->user()->id; 
+        $userName = auth()->user()->name;
+
+        // get every instance where user has been favorited before
+        $favoriteRequestId = FavoriteRequest::where('favorite_requests.to', '=', $userId)->where('favorite_requests.from', '=', $request -> id)->pluck('from')->all();
+
+        // id not favorited before...
+        if(empty($favoriteRequestId)){
+
+            // add record to favorite table
+            $fav = new FavoriteRequest;
+            $fav -> from = $userId;
+            $fav -> to = $request -> id;
+            $fav -> save();
+
+            // send notification to the favorited user
+            $notif = new Notification;
+            $notif -> from = $userId;
+            $notif -> to = $request -> id;
+            $notif -> body = $userName." has favorited you";
+            $notif -> save();
+
+        return response()->json(['message' => 'request sent successfully'], 200); 
+    }
 }
