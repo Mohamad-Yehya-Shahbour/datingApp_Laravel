@@ -187,4 +187,17 @@ class UsersController extends Controller
 
         return json_encode($pics);
     }
+
+    /* public function uploadPic(){
+        $userId = auth()->user()->id;
+        $pic = new Picture;
+        $pic -> picURL = $request -> URL;
+        $pic -> user_id = $userId;
+        $pic -> pending = 0;
+        $pic -> save();
+
+        return response()->json(['message' => 'picture is pending'], 200);
+    } */
+
+    
 }
