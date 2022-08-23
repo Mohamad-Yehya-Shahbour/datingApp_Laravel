@@ -175,5 +175,16 @@ class UsersController extends Controller
 
         return json_encode($users);
     }
+
+    public function getUserPics(){
+
+        // get all user pics
+        $userId = auth()->user()->id;
+        $pics = DB::table('pictures')
+        ->where('user_id', '=', $userId)
+        ->where('pending', '=', 1)
+        ->get();
+
+        return json_encode($pics);
     }
 }
