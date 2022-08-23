@@ -148,5 +148,20 @@ class UsersController extends Controller
             return response()->json(['message' => 'added to matches'], 200);
         }
     }
+
+    public function addMessage(Request $request){
+
+        // add record to messages, waiting for admin to accept
+        $userId = auth()->user()->id;
+        $msg = new Chat;
+        $msg -> from = $userId;
+        $msg -> to = $request -> to;
+        $msg -> body = $request -> body;
+        $msg -> pending = 0;
+        $msg -> save();
+
+        return response()->json(['message' => 'request is pending'], 200);
+
+    }
     }
 }
