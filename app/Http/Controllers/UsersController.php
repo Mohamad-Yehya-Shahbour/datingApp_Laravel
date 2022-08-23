@@ -42,4 +42,35 @@ class UsersController extends Controller
         return json_encode($users, JSON_PRETTY_PRINT);
 
     }
+
+    public function updateUser(Request $request){
+
+        // validate input
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100',
+            'age' => 'required|string|between:2,100',
+            'gender' => 'required|string|between:1,100',
+            'description' => 'required|string|between:2,100',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+
+        $userId = auth()->user()->id;
+        // update user information
+        $user = DB::table('users')
+              ->where('id', $userId)
+              ->update(['name' => $request -> name,
+                        'age' => $request -> age,
+                        'gender' => $request -> gender,
+                        'description' => $request -> description]);
+
+    
+        return response()->json([
+            'message' => 'User successfully updated',
+            'user' => $user
+        ], 201);
+    }
 }
